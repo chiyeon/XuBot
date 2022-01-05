@@ -8,9 +8,11 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 
    if(args[0] == null)
       return Xu.SendEmbed(message.channel, "Requires a class argument!", Xu.COLOR_ERROR);
+   
+   var c = args.join(' ');
 
-   Xu.users[message.author.id].class = args[0];
+   Xu.users[message.author.id].class = c;
    Xu.SaveUserData();
 
-   return Xu.SendEmbed(message.channel, `You have become a ${args[0]}`, Xu.COLOR_NORMAL);
+   return Xu.SendEmbed(message.channel, `You have become a ${c}`, Xu.COLOR_NORMAL);
 }

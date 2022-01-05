@@ -58,7 +58,11 @@ client.on('message', message => {
          try {
             RunCommand(command, message, server, args, client);
          } catch {
-            Xu.SendEmbed(message.channel, `I didn't quite understand that. Try ${Xu.prefix}help to see a list of avaliable commands!`, Xu.COLOR_ERROR);
+            try {
+               RunAlias(command, message, server, args, client);
+            } catch {
+               Xu.SendEmbed(message.channel, `I didn't quite understand that. Try ${Xu.prefix}help to see a list of avaliable commands!`, Xu.COLOR_ERROR);
+            }
          }
       }
    });
@@ -117,7 +121,11 @@ async function VerifyServerIntegrity(message) {
 
 //runs a command given the name. searches the ./core/commands folder for a corresponding .js file. surround with try / catch block !
 function RunCommand(command, message, server, args, client) {
-   require('./core/commands/' + command + '.js').Run(Xu, message, server, args, client);
+   require(`./core/commands/${command}.js`).Run(Xu, message, server, args, client);
+}
+
+function RunAlias(command, message, server, args, client) {
+   require(`./core/commands/${require('./core/aliases.js').list[command]}.js`).Run(Xu, message, server, args, client);
 }
 
 function RunAdminCommand(command, message, server, args, client) {

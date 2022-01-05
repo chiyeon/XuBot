@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-module.exports.Description = "Train a particular attribute [strength, intelligence, dexterity, charisma] and gain XP.";
+module.exports.Description = "Train a particular attribute [str, int, dex, chr] and gain XP.";
 module.exports.Usage = "[Target Attribute]";
 
 module.exports.Run = async (Xu, message, server, args, client) => {
@@ -12,13 +12,29 @@ module.exports.Run = async (Xu, message, server, args, client) => {
    var targetAttr = args[0].toLowerCase();
 
    // check if arg valid
-   if(targetAttr == "strength" || targetAttr == "intelligence" || targetAttr == "charisma" || targetAttr == "dexterity") {
-      user.stats[targetAttr]++;
+   if(targetAttr == "str" || targetAttr == "int" || targetAttr == "chr" || targetAttr == "dex") {
+      // i cant replace everyone so i have to do this gg
+      var dataAttr;
+      switch(targetAttr) {
+         case "str":
+            dataAttr = "strength"
+            break;
+         case "int":
+            dataAttr = "intelligence"
+            break;
+         case "dex":
+            dataAttr = "dexterity"
+            break;
+         case "chr":
+            dataAttr = "charisma"
+            break;
+      }
+      user.stats[dataAttr]++;
       Xu.AddXP(user, 10, message.channel);
 
       Xu.SaveUserData();
-      return Xu.SendEmbed(message.channel, `${targetAttr} +1!\nXP +10!`, Xu.COLOR_INFO);
+      return Xu.SendEmbed(message.channel, `${targetAttr.toUpperCase()} +1!\nXP +10!`, Xu.COLOR_INFO);
    } else {
-      return Xu.SendEmbed(message.channel, "Enter valid training target! (Strength, Intelligence, etc)", Xu.COLOR_ERROR)
+      return Xu.SendEmbed(message.channel, "Enter valid training target! (STR, int, etc)", Xu.COLOR_ERROR)
    }
 }

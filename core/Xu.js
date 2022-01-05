@@ -18,7 +18,7 @@ module.exports.users = null;
 module.exports.prefix = 'x ';
 
 // current version of teh bot
-module.exports.version = 0.3;
+module.exports.version = 0.4;
 
 //color selectors:
 module.exports.COLOR_NORMAL = '#9bcfcd';
@@ -141,5 +141,5 @@ module.exports.AddXP = function(user, xp, channel) {
 }
 
 module.exports.GetTargetXP = function(level) {
-   return level * 10 + (level * level * level);
+   return Math.floor(level * 10 + (level * level * (level * 0.25)));
 }

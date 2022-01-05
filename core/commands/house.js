@@ -6,7 +6,7 @@ module.exports.Usage = "[TargetHouse]"
 module.exports.Run = async (Xu, message, server, args, client) => {
 
    if(args[0] == null)
-      return Xu.SendEmbed(message.channel, "Requires a class argument!", Xu.COLOR_ERROR);
+      return Xu.SendEmbed(message.channel, "Requires a house argument! [Wisteria, Arcana, Conqueror]", Xu.COLOR_ERROR);
    
    var targetHouse = args[0].toLowerCase();
 
