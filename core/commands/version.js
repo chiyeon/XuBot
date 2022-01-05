@@ -14,6 +14,7 @@ var versions = {
    0.4: [
       "Added Global User Data: User data is now stored and saved across servers",
       "Added Command Aliases: Shortened version of particular commands",
+      "Added **report** which can be used to alert the developer of any issues or feedback",
       "Revamped **character** display with better XP bar, default class/house values, and more visuals",
       "Revamped **version** to now allow the optional previous version argument to look at prior builds",
       "Revamped **help** to include command usage, command aliases, and adjusted various help command descriptions",
