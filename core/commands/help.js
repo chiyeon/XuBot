@@ -10,7 +10,7 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 		.setTitle("**XuBot Help Menu**")
 		.setDescription("Use \'" + Xu.prefix + "\' in front of every command!")
 		.addFields(
-			{ name: 'Main', value: 'about\nhelp\nversion', inline: true },
+			{ name: 'Main', value: 'about\nhelp\nversion\nreport', inline: true },
 			{ name: 'XuCoins', value: 'coins\nplus\ngamble\nlottery\nscoreboard', inline: true },
 			{ name: 'Character', value: 'character\nclass\nhouse\ntrain', inline: true }
 		)
@@ -37,7 +37,7 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 			message.channel.send(
 				new Discord.MessageEmbed()
 					.setColor(Xu.COLOR_NORMAL)
-					.setTitle(Xu.prefix + command)
+					.setTitle("`" + Xu.prefix + command + "`")
 					.setDescription(commandDescription)
 					.addFields(
 						{ name: "usage", value: commandUsage },
