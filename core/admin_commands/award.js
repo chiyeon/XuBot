@@ -14,7 +14,9 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 	if(isNaN(amount))
 		return Xu.SendEmbed(message.channel, "Input a valid number!", Xu.COLOR_ERROR);
 	
-	Xu.users[message.mentions.users.first().id].xucoins += amount;
+	var user = Xu.users[message.mentions.users.first().id];
+	
+	user.xucoins += amount;
 	Xu.SaveUserData();
 	Xu.SendEmbed(message.channel, `Awarded ${message.mentions.users.first().username} ${amount} XuCoins!`, Xu.COLOR_INFO);
 }

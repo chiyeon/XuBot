@@ -4,17 +4,18 @@ module.exports.Description = "Buy a lottery ticket for 5 XuCoins. Random chance 
 module.exports.Usage = ""
 
 module.exports.Run = async (Xu, message, server, args, client) => {
+   var user = Xu.users[message.author.id]
 
-   if(Xu.users[message.author.id].xucoins < 5) {
+   if(user.xucoins < 5) {
       return message.react('🤡');
    } else {
-      Xu.users[message.author.id].xucoins -= 5;
+      user.xucoins -= 5;
    }
 
    var luckyNumber = Math.random()*1000;
    var winType = "Normal";
 
-   if(Xu.users[message.author.id].xuser && message.content.toLowerCase().includes('win')) {
+   if(user.xuser && message.content.toLowerCase().includes('win')) {
       luckyNumber = 6;
    }
 
@@ -30,7 +31,7 @@ module.exports.Run = async (Xu, message, server, args, client) => {
          }
       }
 
-      Xu.users[message.author.id].xucoins += amount;
+      user.xucoins += amount;
       Xu.SaveUserData();
 
       Xu.SendEmbed(message.channel, `${message.author} has won a **${winType}** amount of **${amount}** XuCoins in the lottery! Congrats!`, Xu.COLOR_NORMAL);

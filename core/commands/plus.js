@@ -4,8 +4,10 @@ module.exports.Description = "Find ONE XuCoin and TEN XP.";
 module.exports.Usage = ""
 
 module.exports.Run = async (Xu, message, server, args, client) => {
-   Xu.users[message.author.id].xucoins++;
-   Xu.AddXP(Xu.users[message.author.id], 1, message.channel);
+   var user = Xu.users[message.author.id];
+
+   user.xucoins++;
+   Xu.AddXP(user, 1, message.channel);
 
    message.react('😳');
    
