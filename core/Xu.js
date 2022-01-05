@@ -125,17 +125,21 @@ module.exports.SendEmbedWithTitle = function(channel, title, contents, color) {
 module.exports.AddXP = function(user, xp, channel) {
    user.xp += xp;
 
-   var targetXP = user.level * user.level;
+   var targetXP = this.GetTargetXP(user.level);
    var leveled = false;
 
    while(user.xp >= targetXP) {
       user.xp -= targetXP;
       user.level++;
 
-      targetXP = user.level * user.level;
+      targetXP = this.GetTargetXP(user.level);
       leveled = true;
    }
 
    if(leveled)
       this.SendEmbed(channel, `Leveled to ${user.level}!`, this.COLOR_INFO);
+}
+
+module.exports.GetTargetXP = function(level) {
+   return level * 10 + (level * level * level);
 }

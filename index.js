@@ -58,7 +58,7 @@ client.on('message', message => {
          try {
             RunCommand(command, message, server, args, client);
          } catch {
-            Xu.SendEmbed(message.channel, `I didn't quite understand that. Try ${Xu.prefix}help to see a list of avaliable commands!`, Xu.colors[Xu.normal]);
+            Xu.SendEmbed(message.channel, `I didn't quite understand that. Try ${Xu.prefix}help to see a list of avaliable commands!`, Xu.COLOR_ERROR);
          }
       }
    });
