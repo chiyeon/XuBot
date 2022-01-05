@@ -10,10 +10,10 @@ module.exports.Category = "Bot";
 
 module.exports.Run = async (Xu, message, server, args, client) => {
    if(args.length < 1) 
-      return Xu.SendEmbed(message.channel, "owen is sho cute", Xu.colors[Xu.error]);
+      return Xu.SendEmbed(message.channel, "owen is sho cute", Xu.COLOR_ERROR);
 
    var msg = await GetDescription(args[0].toLowerCase());
-   await Xu.SendEmbed(message.channel, msg, Xu.colors[Xu.normal]);
+   await Xu.SendEmbed(message.channel, msg, Xu.COLOR_NORMAL);
 }
 
 function GetDescription(name) {

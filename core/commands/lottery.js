@@ -33,7 +33,7 @@ module.exports.Run = async (Xu, message, server, args, client) => {
       Xu.users[message.author.id].xucoins += amount;
       Xu.SaveUserData();
 
-      Xu.SendEmbed(message.channel, `${message.author} has won ${amount} XuCoins in the lottery! Congrats!`, Xu.colors[Xu.normal]);
+      Xu.SendEmbed(message.channel, `${message.author} has won ${amount} XuCoins in the lottery! Congrats!`, Xu.COLOR_NORMAL);
       message.react('🎉');
    } else {
       message.react('👍');

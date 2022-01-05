@@ -21,16 +21,12 @@ module.exports.prefix = 'x ';
 module.exports.version = 0.3;
 
 //color selectors:
-module.exports.normal = 0;
-module.exports.error = 1;
-module.exports.info = 2;
-
-//common colors for sending messages
-module.exports.colors = [
-   '#9bcfcd',
-   '#d67c93',
-   '#8db598'
-];
+module.exports.COLOR_NORMAL = '#9bcfcd';
+module.exports.COLOR_ERROR = '#d67c93';
+module.exports.COLOR_INFO = '#8db598';
+module.exports.COLOR_WISTERIA = '#ab88bf';
+module.exports.COLOR_CONQUEROR = '#e06453';
+module.exports.COLOR_ARCANA = '#5b75ba';
 
 // === BOT COMMON FUNCTIONS ======
 
@@ -87,9 +83,10 @@ module.exports.CreateServer = function() {
    }
 }
 
-//creates a user instance, unique to each server
-module.exports.CreateUser = function() {
+//creates a user instance
+module.exports.CreateUser = function(_username) {
    return {
+      username: _username,
       xuser: false, //admin status
       xucoins: 0, //# of points
       xp: 0, // xp

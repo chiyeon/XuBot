@@ -10,7 +10,7 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 	
 	if(args.length == 0) {
 		const helpEmbed = new Discord.MessageEmbed()
-		.setColor(Xu.colors[Xu.normal])
+		.setColor(Xu.COLOR_NORMAL)
 		.setTitle("**XuBot Help Menu**")
 		.setDescription("Use \'" + Xu.prefix + "\' in front of every command!")
 		.addFields(
@@ -25,9 +25,9 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 		try {
 			var command = args[0].toLowerCase();
 			var commandDescription = require("./" + args[0].toLowerCase() + ".js").Description();
-			Xu.SendEmbedWithTitle(message.channel, Xu.prefix + command, commandDescription, Xu.colors[Xu.normal]);
+			Xu.SendEmbedWithTitle(message.channel, Xu.prefix + command, commandDescription, Xu.COLOR_NORMAL);
 		} catch {
-			Xu.SendEmbed(message.channel, "Sorry, I don't understand that command!", Xu.colors[Xu.normal]);
+			Xu.SendEmbed(message.channel, "Sorry, I don't understand that command!", Xu.COLOR_NORMAL);
 		}
 	}
 }

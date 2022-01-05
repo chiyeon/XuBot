@@ -92,6 +92,8 @@ async function VerifyServerIntegrity(message) {
       //first attempt to retrieve from collections
       //Xu.servers[message.guild.id] = await Xu.LoadData(message.guild.id);
       Xu.users = await Xu.LoadUserData();
+      if(Xu.users == null)
+         Xu.users = {};
 
       /*
       if(Xu.servers[message.guild.id] == null) {
@@ -106,7 +108,7 @@ async function VerifyServerIntegrity(message) {
    //check if user exists in the database
    if(Xu.users[message.author.id] == null) {
       console.log("Fresh user! Generating user object. . .");
-      Xu.users[message.author.id] = await Xu.CreateUser();
+      Xu.users[message.author.id] = await Xu.CreateUser(message.author.username);
       console.log(`Successfully generated new User with ID ${message.author.id}`);
       await Xu.SaveUserData();
    }

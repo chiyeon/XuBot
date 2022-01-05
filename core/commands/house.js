@@ -9,7 +9,7 @@ module.exports.Description = () => {
 module.exports.Run = async (Xu, message, server, args, client) => {
 
    if(args[0] == null)
-      return Xu.SendEmbed(message.channel, "Requires a class argument!", Xu.colors[Xu.error]);
+      return Xu.SendEmbed(message.channel, "Requires a class argument!", Xu.COLOR_ERROR);
    
    var targetHouse = args[0].toLowerCase();
 
@@ -17,8 +17,8 @@ module.exports.Run = async (Xu, message, server, args, client) => {
       Xu.users[message.author.id].house = targetHouse;
       Xu.SaveUserData();
 
-      return Xu.SendEmbed(message.channel, `You have joined the ${targetHouse} house!`, Xu.colors[Xu.info]);
+      return Xu.SendEmbed(message.channel, `You have joined the ${targetHouse} house!`, Xu.COLOR_INFO);
    }
 
-   return Xu.SendEmbed(message.channel, `Requires a valid house! (Wisteria, Arcana, Conqueror)`, Xu.colors[Xu.error]);
+   return Xu.SendEmbed(message.channel, `Requires a valid house! (Wisteria, Arcana, Conqueror)`, Xu.COLOR_ERROR);
 }

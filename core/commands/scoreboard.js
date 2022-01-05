@@ -13,7 +13,7 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 	});
 	
 	var embed = new Discord.MessageEmbed()
-	.setColor(Xu.colors[Xu.normal])
+	.setColor(Xu.COLOR_NORMAL)
 	.setTitle('SCOREBOARD')
 	.setTimestamp();
 	
@@ -28,15 +28,10 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 	
 	for(var i = 0; i < 10; i++) {
 		if(pointsArray[i]) {
-			var u = client.users.cache.get(pointsArray[i][0].toString());
+			var username = Xu.users[pointsArray[i][0]].username;
 			
-			//verify existence
-			if(u == null)
-				continue;
-			
-			var username = u.username;
 			var points = pointsArray[i][1];
-			embed.setColor(Xu.colors[Xu.normal]);
+			embed.setColor(Xu.COLOR_NORMAL);
 			embed.addField(`[${(i + 1)}] ${username}`, `${points} XuCoins`, false);
 			
 		}

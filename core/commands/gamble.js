@@ -14,11 +14,11 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 
    //do normal checks (is it a number, do they have enough coins, are they gambling a valid amount)
    if(isNaN(amount)) {
-      return Xu.SendEmbed(message.channel, "Gamble a number!", Xu.colors[Xu.error]);
+      return Xu.SendEmbed(message.channel, "Gamble a number!", Xu.COLOR_ERROR);
    } else if(amount > Xu.users[message.author.id].xucoins) {
-      return Xu.SendEmbed(message.channel, "You don't have enough XuCoins!", Xu.colors[Xu.error]);
+      return Xu.SendEmbed(message.channel, "You don't have enough XuCoins!", Xu.COLOR_ERROR);
    } else if(amount <= 0) {
-      return Xu.SendEmbed(message.channel, "Gamble at least one XuCoin!", Xu.colors[Xu.error]);
+      return Xu.SendEmbed(message.channel, "Gamble at least one XuCoin!", Xu.COLOR_ERROR);
    }
 
    result = Math.random() >= 0.5 ? -amount : amount;
@@ -27,6 +27,6 @@ module.exports.Run = async (Xu, message, server, args, client) => {
    // get xp if win!
    if(result > 0)
       Xu.AddXP(Xu.users[message.author.id], result, message.channel);
-   Xu.SendEmbed(message.channel, `<@${message.author.id}> ${result > 0 ? 'won' : 'lost'} the gamble! ${result > 0 ? "Awarded Equal Amount of XP!" : ""}`, Xu.colors[result > 0 ? Xu.normal : Xu.error]);
+   Xu.SendEmbed(message.channel, `<@${message.author.id}> ${result > 0 ? 'won' : 'lost'} the gamble! ${result > 0 ? "Awarded Equal Amount of XP!" : ""}`, result > 0 ? Xu.COLOR_NORMAL : Xu.COLOR_ERROR);
    Xu.SaveUserData();
 }

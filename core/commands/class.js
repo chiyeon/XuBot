@@ -11,10 +11,10 @@ module.exports.Category = "Character";
 module.exports.Run = async (Xu, message, server, args, client) => {
 
    if(args[0] == null)
-      return Xu.SendEmbed(message.channel, "Requires a class argument!", Xu.colors[Xu.error]);
+      return Xu.SendEmbed(message.channel, "Requires a class argument!", Xu.COLOR_ERROR);
 
    Xu.users[message.author.id].class = args[0];
    Xu.SaveUserData();
 
-   return Xu.SendEmbed(message.channel, `You have become a ${args[0]}`, Xu.colors[Xu.info]);
+   return Xu.SendEmbed(message.channel, `You have become a ${args[0]}`, Xu.COLOR_NORMAL);
 }

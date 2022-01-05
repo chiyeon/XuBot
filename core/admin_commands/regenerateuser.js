@@ -8,7 +8,7 @@ module.exports.Description = () => {
 
 module.exports.Run = async (Xu, message, server, args, client) => {
 	if(message.mentions.users.first() == null)
-		return Xu.SendEmbed(message.channel, "Include a target", Xu.colors[Xu.error]);
+		return Xu.SendEmbed(message.channel, "Include a target", Xu.COLOR_ERROR);
 	
 	var isXuser = Xu.users[message.mentions.users.first().id].xuser;
 	

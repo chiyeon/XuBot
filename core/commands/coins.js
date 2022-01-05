@@ -7,5 +7,5 @@ module.exports.Description = () => {
 }
 
 module.exports.Run = async (Xu, message, server, args, client) => {
-   Xu.SendEmbed(message.channel, `You have ${server.users[message.author.id].xucoins} XuCoins.`, Xu.colors[Xu.normal])
+   Xu.SendEmbed(message.channel, `You have ${Xu.users[message.author.id].xucoins} XuCoins.`, Xu.COLOR_NORMAL)
 }
