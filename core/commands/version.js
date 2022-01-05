@@ -16,7 +16,7 @@ var versions = {
       "Added Command Aliases: Shortened version of particular commands",
       "Revamped **character** display with better XP bar, default class/house values, and more visuals",
       "Revamped **version** to now allow the optional previous version argument to look at prior builds",
-      "Revamped **help** to include command usage, and adjusted various help command descriptions",
+      "Revamped **help** to include command usage, command aliases, and adjusted various help command descriptions",
       "Adjusted **lottery** to include 3 distinct winning categories.",
       "Adjusted **lottery** chances and payouts",
       "Adjusted **scoreboard** to display users across all servers",

@@ -22,7 +22,17 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 			var command = args[0].toLowerCase();
 			var commandSrc = require("./" + args[0].toLowerCase() + ".js");
 			var commandDescription = commandSrc.Description;
+
 			var commandUsage = "`" + Xu.prefix + command + " " + commandSrc.Usage + "`";
+
+			var aliases = "";
+			var list = require("../aliases.js").list;
+			Object.keys(list).forEach(key => {
+				if(list[key] == command) {
+					aliases += "`" + key + "`, "
+				}
+			});
+			aliases = aliases.slice(0, -2);
 
 			message.channel.send(
 				new Discord.MessageEmbed()
@@ -30,7 +40,8 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 					.setTitle(Xu.prefix + command)
 					.setDescription(commandDescription)
 					.addFields(
-						{ name: "usage", value: commandUsage }
+						{ name: "usage", value: commandUsage },
+						{ name: "aliases", value: `Alternatives:\n${aliases == "" ? "none" : aliases}`}
 					)
 			);
 		} catch {
