@@ -63,6 +63,7 @@ client.on('message', message => {
       }
    });
    
+   /*
    if(message.content.toLowerCase().includes('now')) {
       //message.channel.send('https://youtu.be/0aRg74S4EM4?t=1477');
    }
@@ -77,7 +78,7 @@ client.on('message', message => {
       } else if(message.content.toLowerCase() == 'i command thee to use a pokeball') {
          message.channel.send('pb');
       }
-   }
+   }*/
 });
 
 //login using token

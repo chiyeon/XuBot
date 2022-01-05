@@ -2,8 +2,7 @@ const Discord = require('discord.js');
 
 module.exports.Description = "Find out about people !";
 module.exports.Usage = "[@TargetUser]"
-
-module.exports.Category = "Bot";
+module.exports.Category = "Main";
 
 module.exports.Run = async (Xu, message, server, args, client) => {
    if(args.length < 1) 

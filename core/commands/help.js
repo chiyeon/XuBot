@@ -4,16 +4,15 @@ module.exports.Description = "A list of all commands. Use 'help [command]' to fi
 module.exports.Usage = "[optional target command]"
 
 module.exports.Run = async (Xu, message, server, args, client) => {
-	
 	if(args.length == 0) {
 		const helpEmbed = new Discord.MessageEmbed()
 		.setColor(Xu.COLOR_NORMAL)
 		.setTitle("**XuBot Help Menu**")
 		.setDescription("Use \'" + Xu.prefix + "\' in front of every command!")
 		.addFields(
-			{ name: 'Bot Commands', value: 'about\nhelp\nversion' },
-			{ name: 'XuCoins', value: 'coins\nplus\ngamble\nlottery\nscoreboard' },
-			{ name: 'Character', value: 'character\nclass\nhouse\ntrain'}
+			{ name: 'Main', value: 'about\nhelp\nversion', inline: true },
+			{ name: 'XuCoins', value: 'coins\nplus\ngamble\nlottery\nscoreboard', inline: true },
+			{ name: 'Character', value: 'character\nclass\nhouse\ntrain', inline: true }
 		)
 		
 		message.channel.send(helpEmbed);
