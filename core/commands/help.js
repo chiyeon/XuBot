@@ -17,7 +17,7 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 			{ name: 'Bot Commands', value: 'about\nhelp\nversion' },
 			{ name: 'XuCoins', value: 'coins\nplus\ngamble\nlottery\nscoreboard' },
 			{ name: 'Character', value: 'character\nclass\nhouse\ntrain'}
-		);
+		)
 		
 		message.channel.send(helpEmbed);
 	} else {
