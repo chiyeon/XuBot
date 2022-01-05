@@ -91,8 +91,8 @@ module.exports.CreateUser = function(_username) {
       xucoins: 0, //# of points
       xp: 0, // xp
       level: 1,
-      class: "",
-      house: "",
+      class: "Classless",
+      house: "Houseless",
       inventory: [], //inventory
       stats: {
          'strength': 1,
