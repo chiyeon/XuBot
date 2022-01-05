@@ -128,6 +128,9 @@ module.exports.AddXP = function(user, xp, channel) {
    var targetXP = this.GetTargetXP(user.level);
    var leveled = false;
 
+   if(user.xp < 0)
+      user.xp = 0;
+
    while(user.xp >= targetXP) {
       user.xp -= targetXP;
       user.level++;

@@ -21,7 +21,8 @@ var versions = {
       "Adjusted **lottery** chances and payouts",
       "Adjusted **scoreboard** to display users across all servers",
       "Adjusted **class** to support multiple word titles",
-      "Adjusted **train** to use shorthand notation (int, CHR)"
+      "Adjusted **train** to use shorthand notation (int, CHR)",
+      "Adjusted **train** to have a small chance at failing training"
    ]
 }
 

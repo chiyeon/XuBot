@@ -29,11 +29,22 @@ module.exports.Run = async (Xu, message, server, args, client) => {
             dataAttr = "charisma"
             break;
       }
-      user.stats[dataAttr]++;
-      Xu.AddXP(user, 10, message.channel);
 
-      Xu.SaveUserData();
-      return Xu.SendEmbed(message.channel, `${targetAttr.toUpperCase()} +1!\nXP +10!`, Xu.COLOR_INFO);
+      // random chance to fail
+      if(Math.random() > 0.1) {
+         user.stats[dataAttr]++;
+         Xu.AddXP(user, 10, message.channel);
+
+         Xu.SaveUserData();
+         return Xu.SendEmbed(message.channel, `${targetAttr.toUpperCase()} +1!\nXP +10!`, Xu.COLOR_INFO);
+      } else {
+         user.stats[dataAttr]--;
+         if(user.stats[dataAttr] < 0) user.stats[dataAttr] = 0;
+         Xu.AddXP(user, -10, message.channel)
+         
+         Xu.SaveUserData();
+         return Xu.SendEmbed(message.channel, `An accident happens!\n\n${targetAttr.toUpperCase()} -1!\nXP -10!`, Xu.COLOR_ERROR);
+      }
    } else {
       return Xu.SendEmbed(message.channel, "Enter valid training target! (STR, int, etc)", Xu.COLOR_ERROR)
    }
