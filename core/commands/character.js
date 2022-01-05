@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 
 module.exports.Description = "An overview of your character.";
-module.exports.Usage = "";
 module.exports.Category = "Character";
+module.exports.Usage = "";
 
 module.exports.Run = async (Xu, message, server, args, client) => {
    var user = Xu.users[message.author.id];

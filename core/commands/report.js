@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 const fs = require('fs');
 
 module.exports.Description = "Report the description of a bug or anything to the developer";
-module.exports.Usage = "[Description]";
 module.exports.Category = "Main";
+module.exports.Usage = "[Description]";
 
 module.exports.Run = async (Xu, message, server, args, client) => {
    if(args[0] == null) {

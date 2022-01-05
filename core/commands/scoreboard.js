@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 
 module.exports.Description = "The top 10 XuCoin holders";
+module.exports.Category = "XuCoins";
 module.exports.Usage = "";
 
 module.exports.Run = async (Xu, message, server, args, client) => {

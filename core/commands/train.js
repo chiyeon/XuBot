@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 
 module.exports.Description = "Train a particular attribute [str, int, dex, chr] and gain XP.";
+module.exports.Category = "Character";
 module.exports.Usage = "[Target Attribute]";
 
 module.exports.Run = async (Xu, message, server, args, client) => {
