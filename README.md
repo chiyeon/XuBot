@@ -1,9 +1,9 @@
 # xubot
-XuBot is a simple discord bot with random features!
+XuBot (pronounced "Shoe-Bot") is a simple discord bot with random features!
 
 Its prefix is "x ". Type **"x help"** to begin!
 
-To view updates, user the **version** command.
+To view updates, use the **version** command.
 
 # XuCoins
 Each user has a XuCoin balance they can use for a multitude of activities. To gain XuCoins, players can use the **plus** command to find a single coin. They may also gamble a specified amount of their balance with the **gamble** command, with a 50% chance to lose their gamble and a 50% chance to gain back 2x their wager.
