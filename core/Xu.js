@@ -91,8 +91,8 @@ module.exports.CreateUser = function(_username) {
       xucoins: 0, //# of points
       xp: 0, // xp
       level: 1,
-      class: "Classless",
-      house: "Houseless",
+      class: "User",
+      house: "No",
       inventory: [], //inventory
       stats: {
          'strength': 1,
@@ -137,5 +137,5 @@ module.exports.AddXP = function(user, xp, channel) {
    }
 
    if(leveled)
-      this.SendEmbed(channel, `Leveled to ${user.level}!`, this.colors[this.info]);
+      this.SendEmbed(channel, `Leveled to ${user.level}!`, this.COLOR_INFO);
 }
