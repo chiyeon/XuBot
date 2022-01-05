@@ -1,11 +1,7 @@
-//increment all about alvins
-
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "An overview of your character.";
-}
-
+module.exports.Description = "An overview of your character.";
+module.exports.Usage = "";
 module.exports.Category = "Character";
 
 module.exports.Run = async (Xu, message, server, args, client) => {

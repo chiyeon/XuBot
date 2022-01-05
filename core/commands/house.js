@@ -1,10 +1,7 @@
-// change house
-
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "Change your house to [Wisteria, Arcana, Conqueror]";
-}
+module.exports.Description = "Change your house to [Wisteria, Arcana, Conqueror]";
+module.exports.Usage = "[TargetHouse]"
 
 module.exports.Run = async (Xu, message, server, args, client) => {
 

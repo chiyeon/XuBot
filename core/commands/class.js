@@ -1,12 +1,8 @@
-// change class
-
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "Change your character class to anything you want.";
-}
-
+module.exports.Description = "Change your character class to anything you want.";
 module.exports.Category = "Character";
+module.exports.Usage = "[Target Class]"
 
 module.exports.Run = async (Xu, message, server, args, client) => {
 

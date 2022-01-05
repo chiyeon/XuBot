@@ -1,10 +1,7 @@
-//increment all about alvins
-
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "Find out about people !";
-}
+module.exports.Description = "Find out about people !";
+module.exports.Usage = "[@TargetUser]"
 
 module.exports.Category = "Bot";
 

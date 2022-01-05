@@ -1,10 +1,7 @@
-// awards a player x amount of XuCoins
-
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "Sets the level of a user";
-}
+module.exports.Description = "Sets the level of a user";
+module.exports.Usage = "[@TargetUser] [Level]"
 
 module.exports.Run = async (Xu, message, server, args, client) => {
 	if(args.length != 2)

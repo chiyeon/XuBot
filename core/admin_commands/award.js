@@ -1,10 +1,7 @@
-// awards a player x amount of XuCoins
-
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "Awards a user XuCoins at no cost.";
-}
+module.exports.Description = "Awards a user XuCoins at no cost.";
+module.exports.Usage = "[@TargetUser] [Amount of XuCoins]"
 
 module.exports.Run = async (Xu, message, server, args, client) => {
 	if(args.length != 2)

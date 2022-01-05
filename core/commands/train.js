@@ -1,10 +1,7 @@
-// train a particular attribute/stat
-
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "Train a particular attribute [strength, intelligence, dexterity, charisma] and gain XP.";
-}
+module.exports.Description = "Train a particular attribute [strength, intelligence, dexterity, charisma] and gain XP.";
+module.exports.Usage = "[Target Attribute]";
 
 module.exports.Run = async (Xu, message, server, args, client) => {
    var user = Xu.users[message.author.id];

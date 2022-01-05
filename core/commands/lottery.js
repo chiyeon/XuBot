@@ -1,10 +1,7 @@
-//slim chance to win a large amount of XuCoins
-
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "Buy a lottery ticket for 5 XuCoins. Random chance at big earnings.";
-}
+module.exports.Description = "Buy a lottery ticket for 5 XuCoins. Random chance at big earnings.";
+module.exports.Usage = ""
 
 module.exports.Run = async (Xu, message, server, args, client) => {
 

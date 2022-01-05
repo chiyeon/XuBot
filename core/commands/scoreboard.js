@@ -1,10 +1,7 @@
-//list the 10 users with the most XuCoins.
-
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "The top 10 XuCoin holders";
-}
+module.exports.Description = "The top 10 XuCoin holders";
+module.exports.Usage = "";
 
 module.exports.Run = async (Xu, message, server, args, client) => {
 	//convert users object into an array with the key as the user id and the value as the number of points

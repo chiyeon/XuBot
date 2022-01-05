@@ -1,10 +1,7 @@
-//increment xucoins by one
-
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "Gamble a certain amount of XuCoins. 50/50 chance to either double amount, or lose it.\n\nUsage: 'gamble [amount]'";
-}
+module.exports.Description = "Gamble a certain amount of XuCoins. 50/50 chance to either double amount, or lose it.\n\nUsage: 'gamble [amount]'";
+module.exports.Usage = "[Amount of XuCoins to Wager]"
 
 module.exports.Run = async (Xu, message, server, args, client) => {
 

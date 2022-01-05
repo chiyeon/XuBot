@@ -1,8 +1,7 @@
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "Awards a user XP at no cost.";
-}
+module.exports.Description = "Awards a user XP at no cost.";
+module.exports.Usage = "[@TargetUser] [Amount of XP]"
 
 module.exports.Run = async (Xu, message, server, args, client) => {
 	if(args.length != 2)

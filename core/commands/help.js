@@ -1,10 +1,7 @@
-//displays a list of all avaliable commands for the bot to run. If an argument is another command, then display how to use the command
-
 const Discord = require('discord.js');
 
-module.exports.Description = () => {
-	return "A list of all commands. Use 'help [command]' to find out more about a particular command!";
-}
+module.exports.Description = "A list of all commands. Use 'help [command]' to find out more about a particular command!";
+module.exports.Usage = "[optional target command]"
 
 module.exports.Run = async (Xu, message, server, args, client) => {
 	
@@ -24,8 +21,19 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 		//check if the user is attempting to get help on a particular command
 		try {
 			var command = args[0].toLowerCase();
-			var commandDescription = require("./" + args[0].toLowerCase() + ".js").Description();
-			Xu.SendEmbedWithTitle(message.channel, Xu.prefix + command, commandDescription, Xu.COLOR_NORMAL);
+			var commandSrc = require("./" + args[0].toLowerCase() + ".js");
+			var commandDescription = commandSrc.Description;
+			var commandUsage = "`" + Xu.prefix + command + " " + commandSrc.Usage + "`";
+
+			message.channel.send(
+				new Discord.MessageEmbed()
+					.setColor(Xu.COLOR_NORMAL)
+					.setTitle(Xu.prefix + command)
+					.setDescription(commandDescription)
+					.addFields(
+						{ name: "usage", value: commandUsage }
+					)
+			);
 		} catch {
 			Xu.SendEmbed(message.channel, "Sorry, I don't understand that command!", Xu.COLOR_NORMAL);
 		}
