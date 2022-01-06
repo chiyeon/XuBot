@@ -28,8 +28,8 @@ function BattleUser(level, name, maxHealth, attack, stats) {
       var attData = AbilityDatabase[this.attack];
 
       damage = attData.baseDamage;
-      damage += this.stats.intelligence * attData.intMultiplier;
-      damage += this.stats.strength * attData.strMultiplier;
+      damage += this.stats.int * attData.intMultiplier;
+      damage += this.stats.str * attData.strMultiplier;
       damage += this.level;
 
       return damage;
@@ -115,14 +115,14 @@ module.exports.Battle = async (Xu, channel, userIDs) => {
    // initialize users
    userIDs.forEach(id => {
       var user = Xu.users[id];
-      battleUsers.push(new BattleUser(user.level, user.username, 10 + user.level * 2, user.activeAbility, user.stats));
+      battleUsers.push(new BattleUser(user.level, user.username, 10 + user.level * 2 + user.bonusHealth, user.activeAbility, user.stats));
    });
 
    // print starting duel
    await PrintDuel("The Duel Begins!", `${battleUsers[0].name} vs ${battleUsers[1].name}`);
 
    var currentUser = 0;
-   if(battleUsers[1].stats.dexterity > battleUsers[0].stats.dexterity)
+   if(battleUsers[1].stats.dex > battleUsers[0].stats.dex)
       currentUser = 1;
 
    for(;;) {

@@ -106,12 +106,12 @@ client.on('message', message => {
          /*
          if(command == "shitstormfix") {
             Object.keys(Xu.users).forEach(key => {
-               Xu.users[key].wins = 0;
-               Xu.users[key].losses = 0;
+               Xu.users[key].bonusHealth = 0;
             })
             Xu.SaveUserData();
          }
          */
+         
          
          //try to run the command, recommend help if broken
          try {

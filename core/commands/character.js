@@ -37,8 +37,8 @@ module.exports.Run = async (Xu, message, server, args, client) => {
          .setTitle(`**${message.author.username}**`)
          .setDescription(`*${user.house.charAt(0).toUpperCase() + user.house.slice(1)} House* ${icon}\n\n**Level ${user.level} ${user.class}**\n${xp}\n`)
          .addFields(
-            { name: "Attributes", value: `STR:  ${stats.strength}\n INT:  ${stats.intelligence}\nDEX:  ${stats.dexterity}\nCHR:  ${stats.charisma}`, inline: true },
-            { name: "Combat Stats", value: `Active Ability: ${user.activeAbility}\nPassive Ability: ${user.passiveAbility}\n\nWins: ${user.wins} | Losses: ${user.losses}`, inline: true }
+            { name: "Attributes", value: `STR:  ${stats.str}\n INT:  ${stats.int}\nDEX:  ${stats.dex}\nCHR:  ${stats.chr}\nSP:  ${user.skillPoints}`, inline: true },
+            { name: "Combat Stats", value: `Max Health: ${10 + user.level * 2 + user.bonusHealth} (${10 + user.level * 2} base + ${user.bonusHealth} bonus)\nActive Ability: ${user.activeAbility}\nPassive Ability: ${user.passiveAbility}\nWins: ${user.wins} | Losses: ${user.losses}`, inline: true }
          )
    );
 }

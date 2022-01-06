@@ -102,11 +102,13 @@ module.exports.CreateUser = function(_username) {
       wins: 0,
       losses: 0,
       inventory: [], //inventory
+      bonusHealth: 0,
+      skillPoints: 0,
       stats: {
-         'strength': 1,
-         'intelligence': 1,
-         'dexterity': 1,
-         'charisma': 1
+         'str': 1,
+         'int': 1,
+         'dex': 1,
+         'chr': 1
       }
    }
 }
@@ -142,13 +144,14 @@ module.exports.AddXP = function(user, xp, channel) {
    while(user.xp >= targetXP) {
       user.xp -= targetXP;
       user.level++;
+      user.skillPoints += 2;
 
       targetXP = this.GetTargetXP(user.level);
       leveled = true;
    }
 
-   if(leveled)
-      this.SendEmbed(channel, `Leveled to ${user.level}!`, this.COLOR_INFO);
+   if(leveled) 
+      this.SendEmbed(channel, `Leveled to ${user.level}!\nSP +1`, this.COLOR_INFO);
 }
 
 module.exports.GetTargetXP = function(level) {
