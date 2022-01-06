@@ -28,7 +28,8 @@ var versions = {
    ],
    0.5: [
       "Added **duel** command and battle system: Challenge other users to battles!",
-      "Added Active Abilities which user a base value plus intelligence and strength modifiers to deal damage"
+      "Added Active Abilities which user a base value plus intelligence and strength modifiers to deal damage",|
+      "Added **ability** command which can be used to search for information about abilities"
    ]
 }
 
