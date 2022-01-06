@@ -51,7 +51,6 @@ client.on('message', message => {
                }
 
                if(duel.challenger.accepted && duel.challenged.accepted) {
-                  Xu.SendEmbed(message.channel, `Both users have accepted. The duel begins...`, Xu.COLOR_INFO);
                   
                   server.duellingUsers = server.duellingUsers.filter(user => user != duel.challenger.id && user != duel.challenged.id);
                   server.pendingDuels.splice(index, 1);

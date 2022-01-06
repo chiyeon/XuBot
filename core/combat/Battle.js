@@ -104,6 +104,10 @@ module.exports.Battle = async (Xu, channel, userIDs) => {
       }
    }
 
+   function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
    var battleUsers = [];      // 'battle user' see func above
    var ActiveAbilitiesDatabase = require("./AbilitiesDatabase.js").activeAbilities; // abilities database
 
@@ -114,42 +118,52 @@ module.exports.Battle = async (Xu, channel, userIDs) => {
    });
 
    // print starting duel
-   PrintDuel("The Duel Begins!", `${battleUsers[0].name} vs ${battleUsers[1].name}`);
+   await PrintDuel("The Duel Begins!", `${battleUsers[0].name} vs ${battleUsers[1].name}`);
 
    var currentUser = 0;
    if(battleUsers[1].stats.dexterity > battleUsers[0].stats.dexterity)
       currentUser = 1;
 
    for(;;) {
+      var escape = false;
+
+      await sleep(3000).then(() => {
+         var otherUser;
+         if(currentUser == 0) otherUser = 1;
+         else otherUser = 0
+
+         var abilityDamage = battleUsers[currentUser].GetAttackDamage(ActiveAbilitiesDatabase);
+
+         battleUsers[otherUser].health -= abilityDamage;
+
+         PrintDuel(`${battleUsers[currentUser].name} uses ${battleUsers[currentUser].attack}, dealing ${abilityDamage} damage!`, `${battleUsers[currentUser].name} ${ActiveAbilitiesDatabase[battleUsers[currentUser].attack].cast}`)
+      
+         if(battleUsers[otherUser].health <= 0) {
+            battleUsers[otherUser].health = 0;
+            escape = true;
+         } else {
+            currentUser = otherUser;
+         }
+      })
+
+      if(escape)
+         break;
+   }
+
+   await sleep(3000).then(() => {
+      PrintDuel(`The Duel has ended!`, `${battleUsers[currentUser].name} has won!`);
+
       var otherUser;
       if(currentUser == 0) otherUser = 1;
       else otherUser = 0
 
-      var abilityDamage = battleUsers[currentUser].GetAttackDamage(ActiveAbilitiesDatabase);
+      Xu.users[userIDs[currentUser]].wins++;
+      Xu.users[userIDs[otherUser]].losses++;
 
-      battleUsers[otherUser].health -= abilityDamage;
-      PrintDuel(`${battleUsers[currentUser].name} uses ${battleUsers[currentUser].attack}, dealing ${abilityDamage} damage!`, `${battleUsers[currentUser].name} ${ActiveAbilitiesDatabase[battleUsers[currentUser].attack].cast}`)
+      userIDs.forEach(userID => {
+         Xu.users[userID].busy = false;
+      })
 
-      if(battleUsers[otherUser].health <= 0) {
-         battleUsers[otherUser].health = 0;
-         break;
-      }
-      
-      currentUser = otherUser;
-   }
-
-   PrintDuel(`The Duel has ended!`, `${battleUsers[currentUser].name} has won!`);
-
-   var otherUser;
-   if(currentUser == 0) otherUser = 1;
-   else otherUser = 0
-
-   Xu.users[userIDs[currentUser]].wins++;
-   Xu.users[userIDs[otherUser]].losses++;
-
-   userIDs.forEach(userID => {
-      Xu.users[userID].busy = false;
+      Xu.SaveUserData();
    })
-
-   Xu.SaveUserData();
 }
