@@ -29,7 +29,9 @@ var versions = {
    0.5: [
       "Added **duel** command and battle system: Challenge other users to battles!",
       "Added Active Abilities which user a base value plus intelligence and strength modifiers to deal damage",
-      "Added **ability** command which can be used to search for information about abilities"
+      "Added **ability** command which can be used to search for information about abilities",
+      "Added **SP** or Skill Points. Find 2 after levelling, and use with the **train** command",
+      "Reworked **train**: Removed chance to fail, now uses 1 SP (Skill Point), can now increase health through Bonus Health"
    ]
 }
 
