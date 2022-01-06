@@ -27,11 +27,13 @@ var versions = {
       "Adjusted **train** to have a small chance at failing training"
    ],
    0.5: [
-      "Added **duel** command and battle system: Challenge other users to battles!",
-      "Added Active Abilities which user a base value plus intelligence and strength modifiers to deal damage",
-      "Added **ability** command which can be used to search for information about abilities",
-      "Added **SP** or Skill Points. Find 2 after levelling, and use with the **train** command",
-      "Reworked **train**: Removed chance to fail, now uses 1 SP (Skill Point), can now increase health through Bonus Health"
+      "**Added a Battle System!** Challenge users to battle with the **duel** command",
+      "Battles are turn based. Users each have an Active Ability which is used back and forth. Whoever has the highest DEX goes first.",
+      "Active abilities scale damage using a base value plus intelligence and strength modifiers",
+      "**Added the *ability* command** which can be used to search for information about abilities",
+      "**Added *SP* or Skill Points.** Find 2 after levelling, and use with the **train** command",
+      "**Reworked the *train* command ** Removed chance to fail, now uses 1 SP (Skill Point), can now increase health through Bonus Health",
+      "Adjusted **character** to include more information (Combat Stats, Wins/Losses, SP)"
    ]
 }
 
