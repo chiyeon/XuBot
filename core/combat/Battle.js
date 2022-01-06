@@ -30,6 +30,7 @@ function BattleUser(level, name, maxHealth, attack, stats) {
       damage = attData.baseDamage;
       damage += this.stats.intelligence * attData.intMultiplier;
       damage += this.stats.strength * attData.strMultiplier;
+      damage += this.level;
 
       return damage;
    }
@@ -136,7 +137,7 @@ module.exports.Battle = async (Xu, channel, userIDs) => {
 
          battleUsers[otherUser].health -= abilityDamage;
 
-         PrintDuel(`${battleUsers[currentUser].name} uses ${battleUsers[currentUser].attack}, dealing ${abilityDamage} damage!`, `${battleUsers[currentUser].name} ${ActiveAbilitiesDatabase[battleUsers[currentUser].attack].cast}`)
+         PrintDuel(`${battleUsers[currentUser].name} uses ${battleUsers[currentUser].attack}, dealing ${abilityDamage} damage!`, `${battleUsers[currentUser].name} ${ActiveAbilitiesDatabase[battleUsers[currentUser].attack].castDescription}`)
       
          if(battleUsers[otherUser].health <= 0) {
             battleUsers[otherUser].health = 0;

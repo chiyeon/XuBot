@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 
 module.exports.Description = "Challenge another user to a duel";
+module.exports.Category = "Combat"
 module.exports.Usage = "[@TargetUser]"
 
 module.exports.Run = async (Xu, message, server, args, client) => {
