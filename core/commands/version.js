@@ -25,6 +25,10 @@ var versions = {
       "Adjusted **class** to support multiple word titles",
       "Adjusted **train** to use shorthand notation (int, CHR)",
       "Adjusted **train** to have a small chance at failing training"
+   ],
+   0.5: [
+      "Added **duel** command and battle system: Challenge other users to battles!",
+      "Added Active Abilities which user a base value plus intelligence and strength modifiers to deal damage"
    ]
 }
 

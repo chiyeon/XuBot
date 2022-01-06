@@ -18,7 +18,7 @@ module.exports.users = null;
 module.exports.prefix = 'x ';
 
 // current version of teh bot
-module.exports.version = 0.4;
+module.exports.version = 0.5;
 
 //color selectors:
 module.exports.COLOR_NORMAL = '#9bcfcd';
