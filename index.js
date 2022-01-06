@@ -27,12 +27,62 @@ client.on('message', message => {
 
    
    //make sure servers and users exist, then handle commands
-   VerifyServerIntegrity(message).then(() => {
+   VerifyServerIntegrity(message).then(async () => {
       if(!message)
          return;
       
       //set references
       server = Xu.servers[message.guild.id];
+
+      if(server.duellingUsers.includes(message.author.id)) {
+         // a duelling user!
+         if(message.content.toLowerCase().includes("fight")) {
+            // ready up da fight
+            server.pendingDuels.forEach((duel, index) => {
+               if(duel.challenger.id == message.author.id) {
+                  duel.challenger.accepted = true;
+                  Xu.SendEmbed(message.channel, `${message.author} has continued the challenge!`, Xu.COLOR_INFO);
+                  Xu.SaveServerData(server, message.guild.id);
+               } 
+               if(duel.challenged.id == message.author.id) {
+                  duel.challenged.accepted = true;
+                  Xu.SendEmbed(message.channel, `${message.author} has accepted the challenge!`, Xu.COLOR_INFO);
+                  Xu.SaveServerData(server, message.guild.id);
+               }
+
+               if(duel.challenger.accepted && duel.challenged.accepted) {
+                  Xu.SendEmbed(message.channel, `Both users have accepted. The duel begins...`, Xu.COLOR_INFO);
+                  
+                  server.duellingUsers = server.duellingUsers.filter(user => user != duel.challenger.id && user != duel.challenged.id);
+                  server.pendingDuels.splice(index, 1);
+
+                  Xu.SaveServerData(server, message.guild.id);
+
+                  require("./core/combat/Battle.js").Battle(Xu, message.channel, [ duel.challenger.id, duel.challenged.id ]);
+               }
+            })
+         } else if(message.content.toLowerCase().includes("decline")) {
+            server.pendingDuels.forEach((duel, index) => {
+               if(duel.challenger.id == message.author.id) {
+                  Xu.SendEmbed(message.channel, `${message.author} has cancelled their challenge!`, Xu.COLOR_INFO);
+                  Xu.SaveServerData(server, message.guild.id);
+               } 
+               if(duel.challenged.id == message.author.id) {
+                  Xu.SendEmbed(message.channel, `${message.author} has declined the challenge!`, Xu.COLOR_INFO);
+                  Xu.SaveServerData(server, message.guild.id);
+               }
+
+               // make not busy
+               Xu.users[duel.challenger.id].busy = false;
+               Xu.users[duel.challenged.id].busy = false;
+               Xu.SaveUserData();
+
+               server.duellingUsers = server.duellingUsers.filter(user => user != duel.challenger.id && user != duel.challenged.id)
+               server.pendingDuels.splice(index, 1);
+               Xu.SaveServerData(server, message.guild.id);
+            })
+         }
+      }
       
       //deal with commands here
       if(message.content.startsWith(Xu.prefix)) {
@@ -53,6 +103,16 @@ client.on('message', message => {
 				}
          }
 
+         // update all users
+         /*
+         if(command == "shitstormfix") {
+            Object.keys(Xu.users).forEach(key => {
+               Xu.users[key].wins = 0;
+               Xu.users[key].losses = 0;
+            })
+            Xu.SaveUserData();
+         }
+         */
          
          //try to run the command, recommend help if broken
          try {
@@ -94,28 +154,32 @@ async function VerifyServerIntegrity(message) {
    if(Xu.users == null) {
       console.log("Loading users database...");
 
-      //first attempt to retrieve from collections
-      //Xu.servers[message.guild.id] = await Xu.LoadData(message.guild.id);
       Xu.users = await Xu.LoadUserData();
+
       if(Xu.users == null)
          Xu.users = {};
+      
+      //check if user exists in the database
+      if(Xu.users[message.author.id] == null) {
+         console.log("Fresh user! Generating user object. . .");
+         Xu.users[message.author.id] = await Xu.CreateUser(message.author.username);
+         console.log(`Successfully generated new User with ID ${message.author.id}`);
+         await Xu.SaveUserData();
+      }
+   }
 
-      /*
+   // check if servers database exists
+   if(Xu.servers[message.guild.id] == null) {
+      console.log("Loading Server Data for server with ID " + message.guild.id);
+
+      Xu.servers[message.guild.id] = await Xu.LoadServerData(message.guild.id);
+
       if(Xu.servers[message.guild.id] == null) {
          console.log("Fresh server! Generating server object. . .");
          Xu.servers[message.guild.id] = await Xu.CreateServer();
          console.log(`Successfully generated new Server with ID ${message.guild.id}`);
-         await Xu.SaveServer();
+         await Xu.SaveServerData(Xu.servers[message.guild.id], message.guild.id);
       }
-      */
-   }
-
-   //check if user exists in the database
-   if(Xu.users[message.author.id] == null) {
-      console.log("Fresh user! Generating user object. . .");
-      Xu.users[message.author.id] = await Xu.CreateUser(message.author.username);
-      console.log(`Successfully generated new User with ID ${message.author.id}`);
-      await Xu.SaveUserData();
    }
 }
 

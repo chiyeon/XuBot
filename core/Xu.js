@@ -79,7 +79,10 @@ module.exports.LoadUserData = async function() {
 //create a server in the servers[] database
 module.exports.CreateServer = function() {
    return {
-      thing: false
+      thing: false,
+      pendingDuels: [],
+      activeDuels: [],
+      duellingUsers: [], // optimzation
    }
 }
 
@@ -87,12 +90,17 @@ module.exports.CreateServer = function() {
 module.exports.CreateUser = function(_username) {
    return {
       username: _username,
+      busy: false,
       xuser: false, //admin status
       xucoins: 0, //# of points
       xp: 0, // xp
       level: 1,
       class: "User",
       house: "No",
+      activeAbility: "Tackle",
+      passiveAbility: "",
+      wins: 0,
+      losses: 0,
       inventory: [], //inventory
       stats: {
          'strength': 1,
