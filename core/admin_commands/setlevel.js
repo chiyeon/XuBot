@@ -23,7 +23,8 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 		"dex": 0,
 		"chr": 0
 	}
-	user.skillPoints = amount * 2;
+	user.skillPoints = amount * 2 - 2;
+	user.bonusHealth = 0;
    user.xp = 0;
 	Xu.SaveUserData();
 	Xu.SendEmbed(message.channel, `Changed ${message.mentions.users.first().username} to Level ${amount}!`, Xu.COLOR_INFO);
