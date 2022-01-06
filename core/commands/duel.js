@@ -29,7 +29,7 @@ module.exports.Run = async (Xu, message, server, args, client) => {
    server.pendingDuels.push({
       challenger: {
          id:  message.author.id,
-         accepted: false
+         accepted: true
       },
       challenged: {
          id: targetDiscordUser.id,
@@ -41,5 +41,5 @@ module.exports.Run = async (Xu, message, server, args, client) => {
 
    Xu.SaveServerData(server, message.guild.id);
 
-	Xu.SendEmbed(message.channel, `**${message.author} has challenged ${targetDiscordUser} to a duel!**\n\nBoth players must type "fight" in the next minute to begin!\n\nThe invitation can be declined by either player typing "decline" before accepting`, Xu.COLOR_INFO);
+	Xu.SendEmbed(message.channel, `**${message.author} has challenged ${targetDiscordUser} to a duel!**\n\n${targetDiscordUser} must type "accept" in the next minute to begin!\n\nThe fight can be cancelled by either player typing "decline" before it begins`, Xu.COLOR_INFO);
 }

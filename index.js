@@ -36,22 +36,13 @@ client.on('message', message => {
 
       if(server.duellingUsers.includes(message.author.id)) {
          // a duelling user!
-         if(message.content.toLowerCase().includes("fight")) {
+         if(message.content.toLowerCase().includes("accept")) {
             // ready up da fight
             server.pendingDuels.forEach((duel, index) => {
-               if(duel.challenger.id == message.author.id) {
-                  duel.challenger.accepted = true;
-                  Xu.SendEmbed(message.channel, `${message.author} has continued the challenge!`, Xu.COLOR_INFO);
-                  Xu.SaveServerData(server, message.guild.id);
-               } 
                if(duel.challenged.id == message.author.id) {
                   duel.challenged.accepted = true;
                   Xu.SendEmbed(message.channel, `${message.author} has accepted the challenge!`, Xu.COLOR_INFO);
-                  Xu.SaveServerData(server, message.guild.id);
-               }
 
-               if(duel.challenger.accepted && duel.challenged.accepted) {
-                  
                   server.duellingUsers = server.duellingUsers.filter(user => user != duel.challenger.id && user != duel.challenged.id);
                   server.pendingDuels.splice(index, 1);
 
