@@ -1,12 +1,19 @@
 const Discord = require("discord.js");
 
-function BattleUser(level, name, maxHealth, attack, stats) {
+function BattleUser(level, name, maxHealth, attack, passive, stats) {
    this.level = level;
    this.name = name;
    this.health = maxHealth;
    this.maxHealth = maxHealth;
    this.attack = attack;
+   this.passive = passive;
    this.stats = stats;
+   this.initialStats = {
+      str: stats.str,
+      int: stats.int,
+      dex: stats.dex,
+      chr: stats.chr
+   }
 
    this.GetHealthBar = () => {
       var healthBar = "";
@@ -30,10 +37,17 @@ function BattleUser(level, name, maxHealth, attack, stats) {
       damage = attData.baseDamage;
       damage += this.stats.int * attData.intMultiplier;
       damage += this.stats.str * attData.strMultiplier;
-      damage += this.level;
+      //damage += this.level;
 
-      return damage;
+      return Math.floor(damage);
    }
+}
+
+function GetOtherPlayer(currentPlayer) {
+   if(currentPlayer == 0)
+      return 1;
+   
+   return 0;
 }
 
 /*
@@ -111,24 +125,68 @@ module.exports.Battle = async (Xu, channel, userIDs) => {
 
    var battleUsers = [];      // 'battle user' see func above
    var ActiveAbilitiesDatabase = require("./AbilitiesDatabase.js").activeAbilities; // abilities database
+   var PassiveAbilitiesDatabase = require("./AbilitiesDatabase.js").passiveAbilities;
 
    // initialize users
    userIDs.forEach(id => {
       var user = Xu.users[id];
-      battleUsers.push(new BattleUser(user.level, user.username, 10 + user.level * 2 + user.bonusHealth, user.activeAbility, user.stats));
+      battleUsers.push(new BattleUser(user.level, user.username, 10 + user.level * 2 + user.bonusHealth, user.activeAbility, user.passiveAbility, user.stats));
    });
 
    // print starting duel
    await PrintDuel("The Duel Begins!", `${battleUsers[0].name} vs ${battleUsers[1].name}`);
 
-   var currentUser = 0;
-   if(battleUsers[1].stats.dex > battleUsers[0].stats.dex)
-      currentUser = 1;
+   var currentUser = 1;    // person being challenged has advantage
+   if(battleUsers[0].stats.dex > battleUsers[1].stats.dex)
+      currentUser = 0;
+   
+   // PRE BATTLE STUFF
+   // check if either users have a pre battle passive
+
+   for(var i = 0; i < 2; i++) {
+      var j = currentUser + i;
+      if(j == 2) j = 0;
+      
+      // j is active user (one currently looking at passive)
+
+      // handle special cases then just activate ability
+      var passiveAbility = PassiveAbilitiesDatabase[battleUsers[j].passive];
+      if(passiveAbility) {
+         if(passiveAbility.type == "pre-battle") {
+            await sleep(3000).then(() => {
+               passiveAbility.Enact(battleUsers[j], battleUsers[GetOtherPlayer(j)]);
+
+               // special case
+               if(battleUsers[j].passive == "Windforce Maxim") currentUser = j;
+
+               PrintDuel(`${battleUsers[j].name}'s ${battleUsers[j].passive}`, `${battleUsers[j].name}${passiveAbility.castDescription}`);
+            })
+         }
+      }
+   }
+
+   // check special case: do both player's have windforce maxim ?
+   if(battleUsers[0].passive == battleUsers[1].passive == "Windforce Maxim")
+      currentUser = Math.random() > 0.5 ? 0 : 1;
+
+   var skipBattle = false;
+   if(battleUsers[0].health <= 0 || battleUsers[1].health <= 0) {
+      skipBattle = true;
+   
+      // make sure right person is losing
+      if(battleUsers[currentUser].health <= 0) {
+         currentUser = GetOtherPlayer(currentUser);
+      }
+   }
 
    for(;;) {
+      if(skipBattle)
+         break;
+      
       var escape = false;
 
       await sleep(3000).then(() => {
+
          var otherUser;
          if(currentUser == 0) otherUser = 1;
          else otherUser = 0
@@ -159,7 +217,9 @@ module.exports.Battle = async (Xu, channel, userIDs) => {
       else otherUser = 0
 
       Xu.users[userIDs[currentUser]].wins++;
+      Xu.users[userIDs[currentUser]].stats = battleUsers[currentUser].initialStats;
       Xu.users[userIDs[otherUser]].losses++;
+      Xu.users[userIDs[otherUser]].stats = battleUsers[otherUser].initialStats;
 
       userIDs.forEach(userID => {
          Xu.users[userID].busy = false;

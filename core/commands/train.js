@@ -23,7 +23,7 @@ module.exports.Run = async (Xu, message, server, args, client) => {
       Xu.SaveUserData();
       return Xu.SendEmbed(message.channel, `SP -1\n${targetAttr.toUpperCase()} +1!`, Xu.COLOR_INFO);
    } else if(targetAttr == "hp") {
-      user.bonusHealth += 2;
+      user.bonusHealth += 5;
       user.skillPoints--;
 
       Xu.SaveUserData();

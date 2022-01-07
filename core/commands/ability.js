@@ -9,9 +9,20 @@ module.exports.Run = async (Xu, message, server, args, client) => {
    if(args[0] == null)
       return Xu.SendEmbed(message.channel, "Requires a target ability!", Xu.COLOR_ERROR);
    
+   if(args[0].toLowerCase() == "list") {
+      var abilities = "";
+
+      Object.keys(require("../combat/AbilitiesDatabase.js").activeAbilities).forEach(key => {
+         abilities += key + ", ";
+      })
+
+      return Xu.SendEmbedWithTitle(message.channel, `Abilities List`, abilities, Xu.COLOR_INFO);
+   }
+   
    var targetAbility = args.join(" ").toLowerCase();
 
    var activeAbilities = require("../combat/AbilitiesDatabase.js").activeAbilities;
+   var passiveAbilities = require("../combat/AbilitiesDatabase.js").passiveAbilities;
 
    var ability = null;
 
@@ -36,6 +47,25 @@ module.exports.Run = async (Xu, message, server, args, client) => {
    }
 
    // otherwise search for passive abilityes
+
+   Object.keys(passiveAbilities).forEach(key => {
+      if(key.toLowerCase() == targetAbility) {
+         ability = passiveAbilities[key];
+         ability.name = key;
+      }
+   })
+
+   if(ability) {
+      return message.channel.send(new Discord.MessageEmbed()
+         .setColor(Xu.COLOR_INFO)
+         .setTitle(ability.name)
+         .setDescription(`*${ability.tier} Tier Passive*`)
+         .addFields(
+            { name: "Description", value: ability.description, inline: true }
+            
+         )
+      )
+   }
 
    // finally if no dice then
 
